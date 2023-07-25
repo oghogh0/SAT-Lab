@@ -225,7 +225,7 @@ This code consists of 6 functions:<br/>
                    cnf_formula_subg_least.append(clause)
        return cnf_formula_subg_least
 <br/> 
-HELPER FUNCTIONS:  <br/> 
+STEP 2 HELPER FUNCTIONS:  <br/> 
 -get_coordinates: returns a list of all coordinates in a row given a dimension n and char = row or col and the row/col number. <br/> 
 
           if char == "row":
@@ -253,7 +253,7 @@ Lastly, for step 3 from the previous section I created a function that construct
                       replace_coordinate_value(sudoku_board, position[:2], position[2])
               return sudoku_board
 <br/> 
-HELPER FUNCTIONS:<br/> 
+STEP 3 HELPER FUNCTIONS:<br/> 
 -create_nd_array: creates an N-D array with dimensions in 'dimensions' list with each value in the array being the given value. <br/> 
      
          if len(dimensions) == 1:
