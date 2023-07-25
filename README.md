@@ -35,15 +35,7 @@ Calling update_function(formula_one, ('a',False)) returns:<br/>
 
 [[('b', True), ('c', True)], [('d', False), ('e', True), ('g', True)]]
 <br/>
-def update_function(formula, variable):
-    """
-    Args:
-        formula: CNF formula
-        updated_variables: tuple of var & updated
-                        bool
-    Returns:
-        updated formula
-    """
+
     new_formula = []
     for statement in formula:
         if variable in statement:  # if chosen value same as set value
@@ -58,13 +50,12 @@ def update_function(formula, variable):
             new_formula.append(statement)
     return new_formula
 
+<br/>
+In the procedure described above, if setting the value of x immediately leads to a contradiction, we can immediately discard that possibility (rather than waiting for a later step in the recursive process to notice the contradiction). Therefore, to optimise the previous approach, I have implemented 'update_with_unit_clause'. Unit clauses are lenght-one clauses. If such a clause [(x, b)] exists, then we may set x to Boolean value b, just as we do in the True and False cases. However, we know that, if this setting leads to failure, there is no need to backtrack and also try x = not b (because the unit clause alone tells us exactly what the value of x must be). Thus, the function begins with a loop that repeatedly finds unit clauses, if any, and propagates their consequences through the formula before making any recursive calls. Propagating the effects of one unit clause may reveal further unit clauses, whose later propagations may themselves reveal more unit clauses, and so on.<br/><br/>
 
-def update_with_unit_clause(formula):
-    """
-    Given a formula, updates formula applies unit clauses
-    """
     for clause in formula:
         if len(clause) == 1:
             unit_formula = update_function(formula, clause[0])
             return (unit_formula, clause[0])
     return formula, None
+<br/>
